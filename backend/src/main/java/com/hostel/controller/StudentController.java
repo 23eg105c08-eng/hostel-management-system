@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
-@CrossOrigin
+@RequestMapping("/api/students")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 
     private final StudentService service;
 
-    public StudentController(StudentService service){
+    public StudentController(StudentService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Student> getStudents(){
+    public List<Student> getStudents() {
         return service.getAll();
     }
 
     @PostMapping
-    public Student addStudent(@RequestBody Student s){
-        return service.save(s);
+    public Student addStudent(@RequestBody Student student) {
+        return service.save(student);
     }
 }
