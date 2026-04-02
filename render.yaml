@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: hostel-backend
+    env: java
+    rootDir: backend
+    buildCommand: mvn clean install -DskipTests
+    startCommand: java -jar target/hostel-management-1.0.jar
+    envVars:
+      - key: PORT
+        value: 10000
