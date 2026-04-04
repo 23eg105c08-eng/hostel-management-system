@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+
 function Dashboard({ refresh }) {
   const [stats, setStats] = useState({
     totalStudents: 0,
@@ -17,7 +19,7 @@ function Dashboard({ refresh }) {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      const studentsResponse = await axios.get('http://localhost:3001/students');
+      const studentsResponse = await axios.get(`${API_URL}/students`);
       const students = studentsResponse.data;
 
       setStats({

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+
 function RoomManagement() {
   const [rooms, setRooms] = useState([]);
   const [formData, setFormData] = useState({
@@ -21,7 +23,7 @@ function RoomManagement() {
   const fetchRooms = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:3001/rooms');
+      const response = await axios.get(`${API_URL}/rooms`);
       setRooms(response.data);
     } catch (error) {
       // If rooms endpoint doesn't exist, initialize with default data

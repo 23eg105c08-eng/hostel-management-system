@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+
 function StudentList({ refresh }) {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ function StudentList({ refresh }) {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get('http://localhost:3001/students');
+      const response = await axios.get(`${API_URL}/students`);
       setStudents(response.data);
     } catch (err) {
       setError('Failed to load students. Please try again.');
@@ -31,7 +33,7 @@ function StudentList({ refresh }) {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this student?')) {
       try {
-        await axios.delete(`http://localhost:3001/students/${id}`);
+        await axios.delete(`${API_URL}/students/${id}`);
         setStudents(students.filter(s => s.id !== id));
       } catch (err) {
         alert('Failed to delete student');
@@ -55,7 +57,7 @@ function StudentList({ refresh }) {
 
   const handleSaveEdit = async (id) => {
     try {
-      await axios.put(`http://localhost:3001/students/${id}`, editFormData);
+      await axios.put(`${API_URL}/students/${id}`, editFormData);
       setStudents(students.map(s => s.id === id ? editFormData : s));
       setEditingId(null);
     } catch (err) {

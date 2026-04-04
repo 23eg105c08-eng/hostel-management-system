@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
+
 function StudentForm({ onStudentAdded }) {
   const [formData, setFormData] = useState({
     name: '',
@@ -65,7 +67,7 @@ function StudentForm({ onStudentAdded }) {
     setMessage({ type: '', text: '' });
 
     try {
-      await axios.post('http://localhost:8082/api/students', {
+      await axios.post(`${API_URL}/students`, {
         name: formData.name,
         email: formData.email,
         roomNumber: formData.roomNumber
