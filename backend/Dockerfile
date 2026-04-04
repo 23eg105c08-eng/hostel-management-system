@@ -1,14 +1,11 @@
-FROM eclipse-temurin:17-jdk AS build
+FROM maven:3.9.6-openjdk-17 AS build
 
 WORKDIR /app
 
 COPY pom.xml .
-COPY .mvn .mvn
-COPY mvnw .
 COPY src ./src
 
-RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jdk
 
