@@ -5,6 +5,10 @@ WORKDIR /app
 # Install Maven
 RUN apt-get update && apt-get install -y maven && apt-get clean
 
+# Cache bust to force rebuild
+ARG BUILD_DATE
+RUN echo "Building on ${BUILD_DATE}"
+
 COPY pom.xml .
 COPY src ./src
 
